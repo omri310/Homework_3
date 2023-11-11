@@ -34,17 +34,18 @@ generateBtn.addEventListener("click", writePassword);
 // Start Function
 function generatePassword() {
   // Ask four user Input
-  passwordLength = prompt("How many characters would you like your password? Choose between 8 and 128");
+  passwordLength = parseInt(prompt("How many characters would you like your password? Choose between 8 and 128"));
   console.log("Password length " + passwordLength);
+  if (isNaN(passwordLength)) {
+    alert('must be a number')
+    return;
+  } 
   
-  if(!passwordLength) {
-    alert("Required value");
-
-  } else if (passwordLength < 8 || passwordLength > 128) {
+  if (!passwordLength || passwordLength < 8 || passwordLength > 128) {
     passwordLength = prompt("You must choose between 8 and 128");
     console.log("Password length " + passwordLength);
-  
-  } else { 
+
+  } else {
     confirmLower = confirm("Will this contain lower case letters?");
     console.log("Lower case " + confirmLower);
     confirmUpper = confirm("Will this contain upper case letters?");
@@ -59,7 +60,7 @@ function generatePassword() {
   // No answer then
   if (!confirmLower && !confirmUpper && !confirmNumber && !confirmSpecial) {
     userChoices = alert("You must choose a criteria");
-  // 4 true options
+    // 4 true options
   } else if (confirmLower && confirmUpper && confirmNumber && confirmSpecial) {
     userChoices = lowerCase.concat(upperCase, numbers, special);
     console.log(userChoices);
@@ -81,8 +82,8 @@ function generatePassword() {
     userChoices = upperCase.concat(numbers, special);
     console.log(userChoices);
   }
-   // 2 true options
-   else if (confirmLower && confirmUpper) {
+  // 2 true options
+  else if (confirmLower && confirmUpper) {
     userChoices = lowerCase.concat(upperCase);
     console.log(userChoices);
   }
@@ -127,7 +128,7 @@ function generatePassword() {
 
   // Empty variable for the password lenght
   var passwordBlank = [];
-  
+
   // Loop for random selection
   for (var i = 0; i < passwordLength; i++) {
     var allChoices = userChoices[Math.floor(Math.random() * userChoices.length)];
@@ -139,5 +140,5 @@ function generatePassword() {
   var password = passwordBlank.join("");
   console.log("Your Pasword is: " + password);
   return password;
-  
+
 }
